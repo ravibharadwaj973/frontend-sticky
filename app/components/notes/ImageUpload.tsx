@@ -93,11 +93,13 @@ export default function ImageUpload() {
         <input
           type="file"
           accept="image/*"
+          aria-label="Choose image"
           onChange={handleFileChange}
           className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
         />
 
         {preview && (
+          // eslint-disable-next-line @next/next/no-img-element -- data: URL preview, next/image can't optimize it
           <img
             src={preview}
             alt="Preview"
@@ -139,6 +141,7 @@ export default function ImageUpload() {
                 className="flex items-center gap-3 p-2 border border-gray-200 rounded"
               >
                 {notification.url ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- short-lived presigned S3 URL, host varies
                   <img
                     src={notification.url}
                     alt=""

@@ -84,7 +84,7 @@ export const api = {
       });
     },
 
-    update: async (id: string, noteData: any) => {
+    update: async (id: string, noteData: { title?: string; content?: string; color?: string; position?: { x: number; y: number }; isArchived?: boolean }) => {
       return apiFetch(`/notes/${id}`, {
         method: 'PUT',
         body: JSON.stringify(noteData),

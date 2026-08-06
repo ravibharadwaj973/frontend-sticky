@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Note } from '@/types';
 import { api } from '@/lib/api';
 import StickyNote from './StickyNote';
@@ -12,7 +12,7 @@ export default function NotesGrid({ showArchived = false }: NotesGridProps) {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     try {
       setLoading(true);
       const endpoint = showArchived ? 'getArchived' : 'getAll';
@@ -24,11 +24,11 @@ export default function NotesGrid({ showArchived = false }: NotesGridProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showArchived]);
 
   useEffect(() => {
     fetchNotes();
-  }, [showArchived]);
+  }, [fetchNotes]);
 
   if (loading) {
     return (
