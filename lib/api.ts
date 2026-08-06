@@ -1,5 +1,5 @@
 // Set NEXT_PUBLIC_API_URL in frontends/.env.local to override (e.g. http://localhost:5000/api for local dev)
-const API_BASE_URL ='http://43.205.206.238/api';
+const API_BASE_URL ='http://15.206.93.53/api';
 
 // Browsers refuse to store cross-site cookies over plain HTTP, so the JWT is
 // also kept in localStorage and sent as an Authorization header on every call.
