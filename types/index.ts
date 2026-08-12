@@ -19,6 +19,19 @@ export interface Note {
   updatedAt: string;
 }
 
+// Owned by the todo-service (the second backend), not by the core backend
+export interface Todo {
+  _id: string;
+  title: string;
+  description: string;
+  priority: 'low' | 'medium' | 'high';
+  dueDate: string | null;
+  isDone: boolean;
+  user: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface UploadNotification {
   _id: string;
   message: string;

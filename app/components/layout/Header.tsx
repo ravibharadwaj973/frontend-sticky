@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 export default function Header() {
@@ -11,9 +12,26 @@ const router=useRouter()
           <div className="flex items-center">
             <h1 className="text-xl font-bold text-gray-800">Sticky Notes</h1>
             {user && (
-              <span className="ml-4 text-gray-600">
-                Welcome, {user.name}!
-              </span>
+              <>
+                {/* /notes is the core backend, /todos is the todo-service */}
+                <div className="ml-6 flex gap-1">
+                  <Link
+                    href="/notes"
+                    className="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100"
+                  >
+                    Notes
+                  </Link>
+                  <Link
+                    href="/todos"
+                    className="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100"
+                  >
+                    Todos
+                  </Link>
+                </div>
+                <span className="ml-4 text-gray-600">
+                  Welcome, {user.name}!
+                </span>
+              </>
             )}
           </div>
 
