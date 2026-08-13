@@ -1,5 +1,7 @@
-// Set NEXT_PUBLIC_API_URL in frontends/.env.local to override (e.g. http://localhost:5000/api for local dev)
-const API_BASE_URL ='http://localhost:5000/api';
+// Base URL comes from the container's API_URL at runtime (ECS task definition),
+// not from a build-time NEXT_PUBLIC_* value. Defaults to http://localhost:5000/api
+// when unset — see lib/runtimeConfig.ts.
+import { getApiUrl } from './runtimeConfig';
 
 // Browsers refuse to store cross-site cookies over plain HTTP, so the JWT is
 // also kept in localStorage and sent as an Authorization header on every call.
@@ -18,7 +20,9 @@ export const tokenStore = {
 const apiFetch = async (path: string, options: RequestInit = {}) => {
   const token = tokenStore.get();
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  // Resolved per call, never cached into a module const — the inline script
+  // that defines window.__ENV may not have run when this module is imported.
+  const response = await fetch(`${getApiUrl()}${path}`, {
     credentials: 'include',
     ...options,
     headers: {

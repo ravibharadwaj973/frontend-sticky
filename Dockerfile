@@ -5,9 +5,9 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 
-# NEXT_PUBLIC_* values are inlined at build time, so they have to be present here
-ARG NEXT_PUBLIC_TODO_API_URL
-ENV NEXT_PUBLIC_TODO_API_URL=$NEXT_PUBLIC_TODO_API_URL
+# No build args on purpose. API_URL / TODO_API_URL are read at REQUEST time by
+# app/layout.tsx, so this image carries no environment-specific values and can
+# be promoted unchanged from dev to staging to prod.
 RUN npm run build
 
 # Runner stage
