@@ -20,9 +20,15 @@ declare global {
   }
 }
 
+// Relative by default: the browser only ever talks to nginx on port 80, which
+// proxies /api/todos -> todo-service and /api/ -> backend over private IPs.
+// Same-origin means no CORS preflight and no public address for the backends.
+//
+// Override with absolute URLs (e.g. http://localhost:5000/api) to bypass nginx
+// and hit a service directly during local development.
 const DEFAULTS: RuntimeConfig = {
-  apiUrl: 'http://localhost:5000/api',
-  todoApiUrl: 'http://localhost:5001/api',
+  apiUrl: '/api',
+  todoApiUrl: '/api',
 };
 
 // Server side only. Called by the root layout after `await connection()`, which
